@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { SiteSettings } from '@/types'
 
 // Changed: Accept optional siteSettings prop for CMS-driven footer content
@@ -73,6 +74,10 @@ export default function Footer({ siteSettings }: FooterProps) {
               <a href="#contact" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
                 Contact
               </a>
+              {/* Changed: Added About link to footer navigation */}
+              <Link href="/about" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+                About
+              </Link>
             </div>
             {/* Changed: Display social media links from CMS */}
             {socialLinks.length > 0 && (
