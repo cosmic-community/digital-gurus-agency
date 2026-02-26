@@ -1,0 +1,41 @@
+import type { Service } from '@/types'
+import ServiceCard from '@/components/ServiceCard'
+
+interface ServicesSectionProps {
+  services: Service[]
+}
+
+export default function ServicesSection({ services }: ServicesSectionProps) {
+  if (!services || services.length === 0) {
+    return null
+  }
+
+  return (
+    <section id="services" className="py-24 sm:py-32 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/50 to-navy-950" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="inline-block text-electric-400 text-sm font-semibold tracking-widest uppercase mb-4">
+            What We Do
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            Our Services
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            We offer a comprehensive suite of digital services to help your
+            business thrive in the modern landscape.
+          </p>
+        </div>
+
+        {/* Services grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service) => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
