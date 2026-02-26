@@ -1,48 +1,104 @@
-export default function Footer() {
-  const currentYear = new Date().getFullYear()
+import type { SiteSettings } from '@/types'
+
+// Changed: Accept optional siteSettings prop for CMS-driven footer content
+interface FooterProps {
+  siteSettings?: SiteSettings | null
+}
+
+export default function Footer({ siteSettings }: FooterProps) {
+  // Changed: Use CMS site settings with fallbacks
+  const siteName = siteSettings?.metadata?.site_name ?? 'Digital Gurus'
+  const tagline = siteSettings?.metadata?.tagline ?? 'Crafting digital experiences that drive results.'
+  const footerText = siteSettings?.metadata?.footer_text ?? `© ${new Date().getFullYear()} Digital Gurus. All rights reserved.`
+  const logoUrl = siteSettings?.metadata?.logo?.imgix_url
+    ? `${siteSettings.metadata.logo.imgix_url}?w=72&h=72&fit=crop&auto=format,compress`
+    : null
+
+  // Changed: Collect social links from CMS
+  const socialLinks = [
+    { label: 'Facebook', url: siteSettings?.metadata?.facebook_url, icon: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z' },
+    { label: 'Twitter', url: siteSettings?.metadata?.twitter_url, icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' },
+    { label: 'LinkedIn', url: siteSettings?.metadata?.linkedin_url, icon: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z' },
+    { label: 'Instagram', url: siteSettings?.metadata?.instagram_url, icon: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01M7.5 2h9A5.5 5.5 0 0122 7.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2z' },
+  ].filter((s) => s.url)
 
   return (
     <footer className="border-t border-navy-800/50 bg-navy-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          {/* Logo */}
+          {/* Logo and tagline - Changed: Uses CMS data */}
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                DG
-              </div>
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={siteName}
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 rounded-lg object-cover"
+                />
+              ) : (
+                <div className="w-9 h-9 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                  DG
+                </div>
+              )}
               <span className="text-lg font-bold text-white">
-                Digital<span className="text-electric-400">Gurus</span>
+                {siteName.includes(' ') ? (
+                  <>
+                    {siteName.split(' ')[0]}
+                    <span className="text-electric-400">{siteName.split(' ').slice(1).join(' ')}</span>
+                  </>
+                ) : (
+                  siteName
+                )}
               </span>
             </div>
             <p className="text-gray-500 text-sm">
-              Crafting digital experiences that drive results.
+              {tagline}
             </p>
           </div>
 
-          {/* Navigation */}
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="#services" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
-              Services
-            </a>
-            <a href="#team" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
-              Team
-            </a>
-            <a href="#testimonials" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
-              Testimonials
-            </a>
-            <a href="#contact" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
-              Contact
-            </a>
+          {/* Navigation and social links */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
+              <a href="#services" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+                Services
+              </a>
+              <a href="#team" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+                Team
+              </a>
+              <a href="#testimonials" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+                Testimonials
+              </a>
+              <a href="#contact" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+                Contact
+              </a>
+            </div>
+            {/* Changed: Display social media links from CMS */}
+            {socialLinks.length > 0 && (
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-500 hover:text-electric-400 transition-colors"
+                    aria-label={social.label}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={social.icon} />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Copyright */}
+          {/* Copyright - Changed: Uses footer_text from CMS */}
           <div className="text-right">
             <p className="text-gray-500 text-sm">
-              &copy; {currentYear} Digital Gurus.
-            </p>
-            <p className="text-gray-600 text-xs mt-1">
-              All rights reserved.
+              {footerText}
             </p>
           </div>
         </div>

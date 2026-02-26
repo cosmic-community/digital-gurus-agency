@@ -1,4 +1,15 @@
-export default function ContactSection() {
+import type { SiteSettings } from '@/types'
+
+// Changed: Accept optional siteSettings prop for CMS-driven email and phone
+interface ContactSectionProps {
+  siteSettings?: SiteSettings | null
+}
+
+export default function ContactSection({ siteSettings }: ContactSectionProps) {
+  // Changed: Use email and phone from CMS site settings with fallbacks
+  const email = siteSettings?.metadata?.email ?? 'hello@digitalgurus.com'
+  const phone = siteSettings?.metadata?.phone ?? '(555) 123-4567'
+
   return (
     <section id="contact" className="py-24 sm:py-32 relative">
       <div className="absolute inset-0 bg-navy-950" />
@@ -24,8 +35,9 @@ export default function ContactSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Changed: Email link uses CMS email address */}
           <a
-            href="mailto:hello@digitalgurus.agency"
+            href={`mailto:${email}`}
             className="inline-flex items-center justify-center gap-2 bg-electric-500 hover:bg-electric-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:shadow-lg hover:shadow-electric-500/25"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,12 +50,23 @@ export default function ContactSection() {
             </svg>
             Get in Touch
           </a>
-          <a
-            href="#services"
-            className="inline-flex items-center justify-center gap-2 border border-navy-500 hover:border-electric-400/50 text-gray-300 hover:text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:bg-navy-800/50"
-          >
-            View Services
-          </a>
+          {/* Changed: Phone link uses CMS phone number */}
+          {phone && (
+            <a
+              href={`tel:${phone.replace(/[^+\d]/g, '')}`}
+              className="inline-flex items-center justify-center gap-2 border border-navy-500 hover:border-electric-400/50 text-gray-300 hover:text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:bg-navy-800/50"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+              {phone}
+            </a>
+          )}
         </div>
       </div>
     </section>
