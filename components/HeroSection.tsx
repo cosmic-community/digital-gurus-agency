@@ -1,8 +1,40 @@
-export default function HeroSection() {
+import type { Page } from '@/types'
+
+// Changed: Accept optional page data from Cosmic CMS
+interface HeroSectionProps {
+  page?: Page | null
+}
+
+export default function HeroSection({ page }: HeroSectionProps) {
+  // Changed: Use CMS data with fallbacks for hero title, subtitle, and background image
+  const heroTitle = page?.metadata?.hero_title ?? 'Crafting Digital Experiences That Drive Results'
+  const heroSubtitle = page?.metadata?.hero_subtitle ?? 'From brand strategy to web development and digital marketing, we help businesses transform their online presence and achieve measurable growth.'
+  const heroImageUrl = page?.metadata?.hero_image?.imgix_url
+    ? `${page.metadata.hero_image.imgix_url}?w=1920&h=1080&fit=crop&auto=format,compress`
+    : null
+
+  // Changed: Split the hero title into parts for styled rendering
+  const titleParts = heroTitle.split(' ')
+  const midpoint = Math.ceil(titleParts.length / 2)
+  const firstLine = titleParts.slice(0, midpoint).join(' ')
+  const secondLine = titleParts.slice(midpoint).join(' ')
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800" />
+
+      {/* Changed: Show hero image from CMS as background overlay if available */}
+      {heroImageUrl && (
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url(${heroImageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      )}
 
       {/* Decorative circles */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-electric-500/10 rounded-full blur-3xl" />
@@ -27,19 +59,18 @@ export default function HeroSection() {
           </span>
         </div>
 
+        {/* Changed: Render hero title from CMS data */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-          <span className="text-white">We Craft</span>
+          <span className="text-white">{firstLine}</span>
           <br />
           <span className="bg-gradient-to-r from-electric-400 via-blue-400 to-electric-500 bg-clip-text text-transparent">
-            Digital Experiences
+            {secondLine}
           </span>
-          <br />
-          <span className="text-white">That Drive Results</span>
         </h1>
 
+        {/* Changed: Render hero subtitle from CMS data */}
         <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          From brand strategy to web development and digital marketing, we help
-          businesses transform their online presence and achieve measurable growth.
+          {heroSubtitle}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

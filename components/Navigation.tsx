@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import type { SiteSettings } from '@/types'
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -9,9 +10,20 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export default function Navigation() {
+// Changed: Accept optional siteSettings prop for CMS-driven site name and logo
+interface NavigationProps {
+  siteSettings?: SiteSettings | null
+}
+
+export default function Navigation({ siteSettings }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Changed: Use CMS site name with fallback
+  const siteName = siteSettings?.metadata?.site_name ?? 'Digital Gurus'
+  const logoUrl = siteSettings?.metadata?.logo?.imgix_url
+    ? `${siteSettings.metadata.logo.imgix_url}?w=80&h=80&fit=crop&auto=format,compress`
+    : null
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,13 +43,31 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Changed: Logo uses CMS logo image if available, otherwise shows initials */}
           <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform">
-              DG
-            </div>
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={siteName}
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-lg object-cover group-hover:scale-110 transition-transform"
+              />
+            ) : (
+              <div className="w-10 h-10 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform">
+                DG
+              </div>
+            )}
             <span className="text-xl font-bold text-white">
-              Digital<span className="text-electric-400">Gurus</span>
+              {/* Changed: Display site name from CMS */}
+              {siteName.includes(' ') ? (
+                <>
+                  {siteName.split(' ')[0]}
+                  <span className="text-electric-400">{siteName.split(' ').slice(1).join(' ')}</span>
+                </>
+              ) : (
+                <span>{siteName}</span>
+              )}
             </span>
           </a>
 

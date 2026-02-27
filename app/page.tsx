@@ -6,28 +6,35 @@ import TestimonialsSection from '@/components/TestimonialsSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 import CosmicBadge from '@/components/CosmicBadge'
-import { getServices, getTeamMembers, getTestimonials } from '@/lib/cosmic'
+import { getServices, getTeamMembers, getTestimonials, getPageBySlug, getSiteSettings } from '@/lib/cosmic'
 
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [services, teamMembers, testimonials] = await Promise.all([
+  // Changed: Also fetch home page content and site settings from Cosmic
+  const [services, teamMembers, testimonials, homePage, siteSettings] = await Promise.all([
     getServices(),
     getTeamMembers(),
     getTestimonials(),
+    getPageBySlug('home'),
+    getSiteSettings(),
   ])
 
   const bucketSlug = process.env.COSMIC_BUCKET_SLUG as string
 
   return (
     <main className="min-h-screen">
-      <Navigation />
-      <HeroSection />
+      {/* Changed: Pass siteSettings to Navigation */}
+      <Navigation siteSettings={siteSettings} />
+      {/* Changed: Pass homePage data to HeroSection */}
+      <HeroSection page={homePage} />
       <ServicesSection services={services} />
       <TeamSection teamMembers={teamMembers} />
       <TestimonialsSection testimonials={testimonials} />
-      <ContactSection />
-      <Footer />
+      {/* Changed: Pass siteSettings to ContactSection */}
+      <ContactSection siteSettings={siteSettings} />
+      {/* Changed: Pass siteSettings to Footer */}
+      <Footer siteSettings={siteSettings} />
       <CosmicBadge bucketSlug={bucketSlug} />
     </main>
   )
