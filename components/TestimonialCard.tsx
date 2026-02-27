@@ -52,7 +52,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
       {/* Client info */}
       <div className="flex items-center gap-3 pt-4 border-t border-navy-700/50">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-electric-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-electric-400 to-amber-600 flex items-center justify-center text-white font-bold text-sm"> {/* Changed: blue-600 to amber-600 */}
           {clientName.charAt(0)}
         </div>
         <div>

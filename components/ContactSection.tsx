@@ -24,7 +24,7 @@ export default function ContactSection({ siteSettings }: ContactSectionProps) {
         <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
           Ready to Start Your
           <br />
-          <span className="bg-gradient-to-r from-electric-400 to-emerald-400 bg-clip-text text-transparent"> {/* Changed: blue-400 to emerald-400 */}
+          <span className="bg-gradient-to-r from-electric-400 to-amber-400 bg-clip-text text-transparent"> {/* Changed: emerald-400 to amber-400 */}
             Next Project?
           </span>
         </h2>

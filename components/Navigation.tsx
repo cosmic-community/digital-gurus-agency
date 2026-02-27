@@ -54,7 +54,7 @@ export default function Navigation({ siteSettings }: NavigationProps) {
                 className="w-10 h-10 rounded-lg object-cover group-hover:scale-110 transition-transform"
               />
             ) : (
-              <div className="w-10 h-10 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 bg-gradient-to-br from-electric-400 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform"> {/* Changed: blue-600 to amber-600 */}
                 DG
               </div>
             )}
