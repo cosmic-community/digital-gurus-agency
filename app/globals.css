@@ -14,6 +14,6 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-electric-400 to-blue-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-electric-400 to-red-400 bg-clip-text text-transparent; /* Changed: gradient endpoint from blue-400 to red-400 */
   }
 }

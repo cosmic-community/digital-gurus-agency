@@ -21,9 +21,9 @@ module.exports = {
           950: '#060d1a',
         },
         electric: {
-          400: '#63b3ed',
-          500: '#4299e1',
-          600: '#3182ce',
+          400: '#fc8181', // Changed: red-400 tone
+          500: '#f56565', // Changed: red-500 tone
+          600: '#e53e3e', // Changed: red-600 tone
         },
       },
       fontFamily: {
