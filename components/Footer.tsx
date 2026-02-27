@@ -39,7 +39,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                   className="w-9 h-9 rounded-lg object-cover"
                 />
               ) : (
-                <div className="w-9 h-9 bg-gradient-to-br from-electric-400 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-9 h-9 bg-gradient-to-br from-electric-400 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-sm"> {/* Changed: blue-600 to emerald-600 */}
                   DG
                 </div>
               )}

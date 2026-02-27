@@ -16,7 +16,7 @@ export default function TeamSection({ teamMembers }: TeamSectionProps) {
 
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-electric-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-600/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-emerald-600/5 rounded-full blur-3xl" /> {/* Changed: blue-600 to emerald-600 */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

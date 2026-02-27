@@ -21,9 +21,9 @@ module.exports = {
           950: '#060d1a',
         },
         electric: {
-          400: '#63b3ed',
-          500: '#4299e1',
-          600: '#3182ce',
+          400: '#4ade80', // Changed: green-400
+          500: '#22c55e', // Changed: green-500
+          600: '#16a34a', // Changed: green-600
         },
       },
       fontFamily: {

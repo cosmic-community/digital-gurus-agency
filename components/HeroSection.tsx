@@ -38,7 +38,7 @@ export default function HeroSection({ page }: HeroSectionProps) {
 
       {/* Decorative circles */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-electric-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl" /> {/* Changed: blue-600 to emerald-600 */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-electric-400/5 rounded-full blur-3xl" />
 
       {/* Grid pattern overlay */}
@@ -63,7 +63,7 @@ export default function HeroSection({ page }: HeroSectionProps) {
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
           <span className="text-white">{firstLine}</span>
           <br />
-          <span className="bg-gradient-to-r from-electric-400 via-blue-400 to-electric-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-electric-400 via-emerald-400 to-electric-500 bg-clip-text text-transparent"> {/* Changed: blue-400 to emerald-400 */}
             {secondLine}
           </span>
         </h1>
