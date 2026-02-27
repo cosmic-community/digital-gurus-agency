@@ -70,7 +70,7 @@ export default function Footer({ siteSettings }: FooterProps) {
               <a href="#testimonials" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
                 Testimonials
               </a>
-              <a href="#contact" className="text-gray-400 hover:text-electric-400 text-sm transition-colors">
+              <a href="/contact" className="text-gray-400 hover:text-electric-400 text-sm transition-colors"> {/* Changed: Link to /contact page instead of #contact */}
                 Contact
               </a>
             </div>

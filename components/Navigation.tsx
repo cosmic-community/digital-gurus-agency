@@ -7,7 +7,7 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Team', href: '#team' },
   { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' }, // Changed: Link to /contact page instead of #contact
 ]
 
 // Changed: Accept optional siteSettings prop for CMS-driven site name and logo
@@ -83,7 +83,7 @@ export default function Navigation({ siteSettings }: NavigationProps) {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/contact" // Changed: Link to /contact page instead of #contact
               className="bg-electric-500 hover:bg-electric-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors"
             >
               Get Started
@@ -135,7 +135,7 @@ export default function Navigation({ siteSettings }: NavigationProps) {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/contact" // Changed: Link to /contact page instead of #contact
               onClick={() => setIsMobileMenuOpen(false)}
               className="block mt-4 mx-4 text-center bg-electric-500 hover:bg-electric-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors"
             >
